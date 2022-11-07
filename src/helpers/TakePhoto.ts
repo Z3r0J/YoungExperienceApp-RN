@@ -12,16 +12,6 @@ export const TakePhoto = async (camera: React.RefObject<Camera>) => {
         type: 'photo',
         album: 'YoungLiving-App',
       });
-    })
-    .then(() => {
-      CameraRoll.getPhotos({
-        first: 250,
-        groupTypes: 'Album',
-        groupName: 'YoungLiving-App',
-        assetType: 'Photos',
-      }).then(r => {
-        return r.edges;
-      });
     });
 
   return photo;

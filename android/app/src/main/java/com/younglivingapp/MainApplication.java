@@ -13,6 +13,7 @@ import com.younglivingapp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativecommunity.cameraroll.CameraRollPackage;
+import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

@@ -13,9 +13,14 @@ import {
   DefaultTheme,
   DarkTheme,
 } from '@react-navigation/native';
-import React from 'react';
-import {useColorScheme} from 'react-native';
+import React, {useEffect} from 'react';
+import {useColorScheme, PermissionsAndroid, Platform} from 'react-native';
 import {NavigationDrawer} from './src/components/navigation/NavigationDrawer';
+import {
+  handleCamera,
+  handleRecord,
+  handleStorage,
+} from './src/helpers/Permission';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,6 +41,21 @@ const App = () => {
       border: 'rgb(189,157,120)',
     },
   };
+
+  useEffect(() => {
+    const handlePermissions = async () => {
+      if (Platform.OS === 'android' && !(await handleStorage())) {
+        return;
+      } else if (Platform.OS === 'android' && !(await handleRecord())) {
+        return;
+      } else if (Platform.OS === 'android' && !(await handleCamera())) {
+        return;
+      }
+    };
+
+    handlePermissions();
+  }, []);
+
   return (
     <NavigationContainer theme={isDarkMode ? MyDarkTheme : MyLightTheme}>
       <NavigationDrawer />
