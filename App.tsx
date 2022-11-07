@@ -16,6 +16,7 @@ import {
 import React, {useEffect} from 'react';
 import {useColorScheme, PermissionsAndroid, Platform} from 'react-native';
 import {NavigationDrawer} from './src/components/navigation/NavigationDrawer';
+import {DbContextProvider} from './src/contexts/DbContext';
 import {
   handleCamera,
   handleRecord,
@@ -57,9 +58,11 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer theme={isDarkMode ? MyDarkTheme : MyLightTheme}>
-      <NavigationDrawer />
-    </NavigationContainer>
+    <DbContextProvider>
+      <NavigationContainer theme={isDarkMode ? MyDarkTheme : MyLightTheme}>
+        <NavigationDrawer />
+      </NavigationContainer>
+    </DbContextProvider>
   );
 };
 
