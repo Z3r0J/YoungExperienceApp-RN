@@ -1,13 +1,15 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import React, {useRef, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Button, Text, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {TakePhoto} from '../../helpers/TakePhoto';
+import SoundRecorder from 'react-native-sound-recorder';
+import {RecordAudio} from '../../helpers/RecordAudio';
 
 export const FormAppComponent = () => {
   const [newPhoto, setNewPhoto] = useState<boolean>(false);
-  const [newAudio, setNewAudio] = useState<boolean>(false);
+  const [isGrabando, setIsGrabando] = useState<boolean>(false);
   const devices = useCameraDevices('wide-angle-camera');
   const device = devices.front;
   const camera = useRef<Camera>(null);
@@ -39,6 +41,13 @@ export const FormAppComponent = () => {
           </TouchableOpacity>
         </>
       )}
+      <Button
+        title={isGrabando ? 'Parar' : 'Grabar'}
+        onPress={() => {
+          const [grabando]: any = RecordAudio(isGrabando);
+          return setIsGrabando(grabando);
+        }}
+      />
     </ScrollView>
   );
 };
