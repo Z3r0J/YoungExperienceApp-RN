@@ -9,15 +9,41 @@ export const Styles = (isDarkMode: boolean) =>
       marginEnd: 5,
       borderRadius: 8,
     },
+    viewForm: {
+      backgroundColor: 'rgb(239,145,0)',
+      height: '75%',
+      marginStart: 14,
+      marginEnd: 14,
+      marginTop: 25,
+      borderRadius: 8,
+      padding: 14,
+    },
 
     cardBackground: {
-      backgroundColor: '#fff',
+      backgroundColor: isDarkMode ? '#fff' : '#000',
       marginStart: 5,
       borderRadius: 8,
       marginEnd: 5,
       marginTop: 10,
       padding: 18,
-      color: 'black',
+      flexDirection: 'row',
+      flex: 2,
+    },
+    cardText: {
+      color: isDarkMode ? 'black' : 'white',
+      fontSize: 18,
+      fontFamily: 'Poppins-Regular',
+      fontWeight: '700',
+    },
+    cardTextContainer: {
+      width: '75%',
+      alignSelf: 'flex-start',
+    },
+    cardButton: {
+      backgroundColor: isDarkMode ? 'black' : 'white',
+      alignSelf: 'flex-end',
+      padding: 20,
+      borderRadius: 9,
     },
 
     imageHome: {
@@ -26,7 +52,7 @@ export const Styles = (isDarkMode: boolean) =>
     },
     principalTextHome: {
       textAlign: 'center',
-      color: isDarkMode ? 'white' : 'black',
+      color: isDarkMode ? 'black' : 'white',
       fontSize: 28,
       fontWeight: '700',
       fontFamily: 'Lato-Regular',

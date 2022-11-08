@@ -1,11 +1,18 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import React, {useRef, useState} from 'react';
-import {Button, Text, TouchableOpacity, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {
+  Button,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import {Camera, useCameraDevices} from 'react-native-vision-camera';
 import {TakePhoto} from '../../helpers/TakePhoto';
 import SoundRecorder from 'react-native-sound-recorder';
 import {RecordAudio} from '../../helpers/RecordAudio';
+import {Styles} from '../../helpers/Styles';
 
 export const FormAppComponent = () => {
   const [newPhoto, setNewPhoto] = useState<boolean>(false);
@@ -13,10 +20,14 @@ export const FormAppComponent = () => {
   const devices = useCameraDevices('wide-angle-camera');
   const device = devices.front;
   const camera = useRef<Camera>(null);
+  const isDarkMode = useColorScheme() === 'dark';
+
   if (device == null) return <Text>No camera available</Text>;
 
   return (
-    <ScrollView>
+    <View style={Styles(isDarkMode).viewForm}>
+      <Text>Digite el titulo: </Text>
+      <TextInput />
       {newPhoto && (
         <>
           <Camera
@@ -43,11 +54,12 @@ export const FormAppComponent = () => {
       )}
       <Button
         title={isGrabando ? 'Parar' : 'Grabar'}
-        onPress={() => {
-          const [grabando]: any = RecordAudio(isGrabando);
-          return setIsGrabando(grabando);
+        onPress={async () => {
+          await RecordAudio(isGrabando).then(async r => {
+            setIsGrabando(r[0]);
+          });
         }}
       />
-    </ScrollView>
+    </View>
   );
 };
