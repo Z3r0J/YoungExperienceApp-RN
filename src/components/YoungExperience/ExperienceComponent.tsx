@@ -1,20 +1,28 @@
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {useCallback} from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, useColorScheme, View} from 'react-native';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {useDbContext} from '../../contexts/DbContext';
+import {Styles} from '../../helpers/Styles';
 import {
   Experience,
   getAllExperience,
   insertExperience,
+  truncateExperience,
 } from '../../services/ExperienceServices';
 import {ExperienceItems} from './ExperienceItems';
 
 export const ExperienceComponent = () => {
   const [experience, setExperience] = useState<Experience[]>();
   const [error, setError] = useState(null);
+  const isDarkMode = useColorScheme() === 'dark';
   const db = useDbContext();
+  const navigation = useNavigation();
 
   const focusEffect = useCallback(() => {
     const fetchDb = async () => {
@@ -34,6 +42,17 @@ export const ExperienceComponent = () => {
 
   return (
     <View>
+      {experience && (
+        <TouchableOpacity
+          style={Styles(isDarkMode).deleteAllButton}
+          onPress={() => {
+            truncateExperience(db).then(() => navigation.navigate('Home'));
+          }}>
+          <Text style={Styles(isDarkMode).deleteAllText}>
+            Delete all experience
+          </Text>
+        </TouchableOpacity>
+      )}
       <FlatList
         data={experience}
         renderItem={item => <ExperienceItems item={item.item} />}

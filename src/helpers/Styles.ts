@@ -30,10 +30,21 @@ export const Styles = (isDarkMode: boolean) =>
       flex: 2,
     },
     cardText: {
-      color: isDarkMode ? 'black' : 'white',
+      color: isDarkMode ? 'white' : 'black',
       fontSize: 18,
       fontFamily: 'Poppins-Regular',
       fontWeight: '700',
+    },
+    itemText: {
+      color: isDarkMode ? 'black' : 'white',
+      fontSize: 18,
+      fontFamily: 'OpenSans-Regular',
+      fontWeight: '700',
+    },
+    formText: {
+      fontSize: 16,
+      color: isDarkMode ? 'white' : 'black',
+      fontFamily: 'Lato-Regular',
     },
     cardTextContainer: {
       width: '75%',
@@ -42,6 +53,9 @@ export const Styles = (isDarkMode: boolean) =>
     formTextContainer: {
       width: '75%',
       alignSelf: 'flex-start',
+      fontSize: 16,
+      color: isDarkMode ? 'white' : 'white',
+      fontFamily: 'Lato-Regular',
     },
     cardButton: {
       backgroundColor: isDarkMode ? 'black' : 'white',
@@ -61,7 +75,7 @@ export const Styles = (isDarkMode: boolean) =>
     },
     principalTextHome: {
       textAlign: 'center',
-      color: isDarkMode ? 'black' : 'white',
+      color: isDarkMode ? 'white' : 'black',
       fontSize: 28,
       fontWeight: '700',
       fontFamily: 'Lato-Regular',
@@ -93,5 +107,30 @@ export const Styles = (isDarkMode: boolean) =>
       borderRadius: 18,
       marginTop: -65,
       alignSelf: 'center',
+    },
+    deleteAllButton: {
+      backgroundColor: isDarkMode ? 'red' : 'darkred',
+      width: 150,
+      alignSelf: 'flex-end',
+      marginTop: 15,
+      marginBottom: 10,
+      padding: 12,
+      marginEnd: 8,
+      borderRadius: 15,
+    },
+    deleteAllText: {
+      textAlign: 'center',
+      color: 'white',
+      fontSize: 16,
+      fontFamily: 'Poppins-Regular',
+      fontWeight: '600',
+    },
+    formInput: {
+      borderBottomWidth: 2,
+      borderBottomColor: isDarkMode ? 'white' : 'black',
+      color: isDarkMode ? 'white' : 'black',
+      fontSize: 18,
+      fontFamily: 'Lato-Regular',
+      marginBottom: 8,
     },
   });

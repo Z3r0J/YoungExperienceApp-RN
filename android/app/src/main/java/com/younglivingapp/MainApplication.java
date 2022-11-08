@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
+import com.brentvatne.react.ReactVideoPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

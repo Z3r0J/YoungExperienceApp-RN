@@ -27,12 +27,14 @@ import {getPhoto} from '../../helpers/getPhotoUrl';
 import {getAudio} from '../../helpers/getAudio';
 import {set} from 'react-native-reanimated';
 import {useDbContext} from '../../contexts/DbContext';
+import {useNavigation} from '@react-navigation/native';
 
 export const FormAppComponent = () => {
   const [newPhoto, setNewPhoto] = useState<boolean>(false);
   const [isGrabando, setIsGrabando] = useState<boolean>(false);
   const [tiroPhoto, setTiroPhoto] = useState<boolean>(false);
   const [graboAudio, setGraboAudio] = useState<boolean>(false);
+  const navigation = useNavigation();
   const devices = useCameraDevices('wide-angle-camera');
   const device = devices.front;
   const camera = useRef<Camera>(null);
@@ -57,7 +59,21 @@ export const FormAppComponent = () => {
     }
 
     if (!tiroPhoto && !graboAudio) {
-      insertExperience(userData, db);
+      insertExperience(userData, db).then(async () => {
+        Alert.alert(
+          'Added',
+          'That was added correctly without Photo or Audio',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                clearAll();
+                navigation.navigate('ListExperience', {});
+              },
+            },
+          ],
+        );
+      });
       return;
     }
     if (tiroPhoto) {
@@ -67,10 +83,22 @@ export const FormAppComponent = () => {
       setUserData({...userData, PhotoUrl: photos});
     }
 
-    if (graboAudio) {
+    if (graboAudio && tiroPhoto) {
       userData.PhotoUrl &&
         insertExperience(userData, db).then(async () => {
-          Alert.alert('Ya se agrego');
+          Alert.alert(
+            'Added',
+            'That was added correctly with Photo and Audio',
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  clearAll();
+                  navigation.navigate('ListExperience', {});
+                },
+              },
+            ],
+          );
           await updateData(
             userData.PhotoUrl,
             (
@@ -79,8 +107,37 @@ export const FormAppComponent = () => {
             db,
           ).then(r => console.log(r));
         });
-    } else {
-      insertExperience(userData, db);
+    }
+
+    if (graboAudio && !tiroPhoto) {
+      setUserData({...userData, AudioUrl: (await getAudio()).node.image.uri});
+      userData.AudioUrl &&
+        insertExperience(userData, db).then(async () => {
+          Alert.alert('Added', 'That was added correctly with Audio', [
+            {
+              text: 'OK',
+              onPress: () => {
+                clearAll();
+                navigation.navigate('ListExperience', {});
+              },
+            },
+          ]);
+        });
+    }
+
+    if (!graboAudio && tiroPhoto) {
+      userData.PhotoUrl &&
+        insertExperience(userData, db).then(async () => {
+          Alert.alert('Added', 'That was added correctly with Photo.', [
+            {
+              text: 'OK',
+              onPress: () => {
+                clearAll();
+                navigation.navigate('ListExperience', {});
+              },
+            },
+          ]);
+        });
     }
   };
 
@@ -90,18 +147,35 @@ export const FormAppComponent = () => {
     year: 'numeric',
   });
 
+  const clearAll = () => {
+    setGraboAudio(false);
+    setTiroPhoto(false);
+    setUserData({
+      AudioUrl: '',
+      PhotoUrl: '',
+      date_actual: '',
+      description: '',
+      id: 0,
+      title: '',
+    });
+  };
+
   if (device == null) return <Text>No camera available</Text>;
 
   return (
     <ScrollView style={Styles(isDarkMode).viewForm}>
-      <Text>Title: </Text>
+      <Text style={Styles(isDarkMode).formText}>Title: </Text>
       <TextInput
+        style={Styles(isDarkMode).formInput}
+        value={userData.title}
         onChangeText={e => {
           setUserData({...userData, title: e, date_actual: currentDate});
         }}
       />
-      <Text>Description: </Text>
+      <Text style={Styles(isDarkMode).formText}>Description: </Text>
       <TextInput
+        value={userData.description}
+        style={Styles(isDarkMode).formInput}
         onChangeText={e => {
           setUserData({...userData, description: e});
         }}
@@ -113,7 +187,7 @@ export const FormAppComponent = () => {
           style={Styles(isDarkMode).cardButton}>
           <Icon
             name={newPhoto ? 'camera' : 'md-camera-outline'}
-            color={'#000'}
+            color={isDarkMode ? 'white' : 'black'}
             size={24}></Icon>
         </TouchableOpacity>
       </View>
@@ -135,6 +209,7 @@ export const FormAppComponent = () => {
           style={Styles(isDarkMode).formButton}>
           <EnIcon
             name={isGrabando ? 'controller-stop' : 'controller-play'}
+            color={isDarkMode ? 'white' : 'black'}
             size={24}></EnIcon>
         </TouchableOpacity>
       </View>
@@ -164,8 +239,15 @@ export const FormAppComponent = () => {
       <TouchableOpacity
         onPress={() => {
           handleSubmit();
+        }}
+        style={{
+          marginTop: 35,
+          backgroundColor: '#000',
+          alignSelf: 'center',
+          padding: 18,
+          borderRadius: 10,
         }}>
-        <Text>Guardar</Text>
+        <Text style={Styles(isDarkMode).formTextContainer}>Guardar</Text>
       </TouchableOpacity>
     </ScrollView>
   );

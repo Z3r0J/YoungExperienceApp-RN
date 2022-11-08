@@ -259,6 +259,9 @@ dependencies {
     implementation project(':@react-native-camera-roll_camera-roll')
 
     implementation project(':react-native-sound-recorder')
+    
+    implementation project(':react-native-video')
+    
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'

@@ -12,13 +12,13 @@ export const ExperienceItems = (props: any) => {
     <View style={Styles(isDarkMode).cardBackground}>
       <View style={Styles(isDarkMode).cardTextContainer}>
         <Text
-          style={Styles(isDarkMode).cardText}
+          style={Styles(isDarkMode).itemText}
           onPress={() => {
             navigation.navigate('Details', {data: props.item});
           }}>
           {props.item.title}
         </Text>
-        <Text style={Styles(isDarkMode).cardText}>
+        <Text style={Styles(isDarkMode).itemText}>
           {props.item.date_actual}
         </Text>
       </View>
