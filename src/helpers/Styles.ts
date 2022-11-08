@@ -9,6 +9,17 @@ export const Styles = (isDarkMode: boolean) =>
       marginEnd: 5,
       borderRadius: 8,
     },
+
+    cardBackground: {
+      backgroundColor: '#fff',
+      marginStart: 5,
+      borderRadius: 8,
+      marginEnd: 5,
+      marginTop: 10,
+      padding: 18,
+      color: 'black',
+    },
+
     imageHome: {
       width: '100%',
       height: '65%',

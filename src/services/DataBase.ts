@@ -14,7 +14,7 @@ export const getConnection = async (): Promise<SQLiteDatabase> => {
 };
 
 export const createTable = async (db: any) => {
-  const query = `CREATE TABLE IF NOT EXISTS EXPERIENCE(id INTEGER AUTOINCREMENT,title nvarchar(150),date_actual datetime, description text, PhotoUrl text, AudioUrl text)`;
+  const query = `CREATE TABLE IF NOT EXISTS EXPERIENCE(id INTEGER PRIMARY KEY AUTOINCREMENT,title nvarchar(150),date_actual datetime, description text, PhotoUrl text, AudioUrl text)`;
   return await db.executeSql(query);
 };
 
