@@ -91,7 +91,7 @@ export const Styles = (isDarkMode: boolean) =>
       backgroundColor: isDarkMode ? 'white' : 'black',
       width: 38,
       borderRadius: 18,
-      marginTop: -55,
+      marginTop: -65,
       alignSelf: 'center',
     },
   });

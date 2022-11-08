@@ -27,6 +27,16 @@ export const insertExperience = async (experience: Experience, db: any) => {
   return await db.executeSql(query);
 };
 
+export const updateData = async (
+  photoUrl: string,
+  audioUrl: string,
+  db: any,
+) => {
+  console.log(audioUrl);
+  const query = `UPDATE EXPERIENCE SET AudioUrl='${audioUrl}' where PhotoUrl='${photoUrl}'`;
+  return await db.executeSql(query);
+};
+
 export const truncateExperience = async (db: any) => {
   const experiences = await getAllExperience(db);
 

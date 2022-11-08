@@ -5,6 +5,7 @@ import {Text, TouchableOpacity, useColorScheme} from 'react-native';
 import {FormAppComponent} from '../formApp/FormAppComponent';
 import {HomeComponent} from '../home/HomeComponent';
 import {ExperienceComponent} from '../YoungExperience/ExperienceComponent';
+import {ExperienceDetails} from '../YoungExperience/ExperienceDetails';
 import {HeaderNavigation} from './HeaderNavigation';
 
 const Drawer = createDrawerNavigator();
@@ -31,6 +32,18 @@ export const NavigationDrawer = () => {
       <Drawer.Screen
         name="FormApp"
         component={FormAppComponent}
+        options={{
+          headerRight: () => (
+            <HeaderNavigation
+              component={'ListExperience'}
+              title={'Back To List'}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Details"
+        component={ExperienceDetails}
         options={{
           headerRight: () => (
             <HeaderNavigation

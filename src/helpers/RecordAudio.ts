@@ -1,5 +1,6 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {useState} from 'react';
+import {Alert} from 'react-native';
 import SoundRecorder from 'react-native-sound-recorder';
 
 export const RecordAudio = async (isGrabando: boolean) => {
@@ -18,6 +19,8 @@ export const RecordAudio = async (isGrabando: boolean) => {
       console.log(r), console.log('Grabado');
     });
   });
+
+  Alert.alert('Audio Saved', 'You audio was saved.');
 
   return [false];
 };

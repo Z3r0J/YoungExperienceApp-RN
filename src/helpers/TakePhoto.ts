@@ -1,4 +1,5 @@
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import {Alert} from 'react-native';
 import {Camera} from 'react-native-vision-camera';
 
 export const TakePhoto = async (camera: React.RefObject<Camera>) => {
@@ -13,6 +14,8 @@ export const TakePhoto = async (camera: React.RefObject<Camera>) => {
         album: 'YoungLiving-App',
       });
     });
+
+  Alert.alert('Photo Saved', 'You photo was saved.');
 
   return photo;
 };

@@ -16,15 +16,6 @@ export const ExperienceComponent = () => {
   const [error, setError] = useState(null);
   const db = useDbContext();
 
-  function getCurrentDate() {
-    let dateObj = new Date();
-    let month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    let day = String(dateObj.getDate()).padStart(2, '0');
-    let year = dateObj.getFullYear();
-    let output = day + '/' + month + '/' + year;
-    return output;
-  }
-
   const focusEffect = useCallback(() => {
     const fetchDb = async () => {
       try {
