@@ -13,6 +13,8 @@ import {TakePhoto} from '../../helpers/TakePhoto';
 import SoundRecorder from 'react-native-sound-recorder';
 import {RecordAudio} from '../../helpers/RecordAudio';
 import {Styles} from '../../helpers/Styles';
+import Icon from 'react-native-vector-icons/Ionicons';
+import EnIcon from 'react-native-vector-icons/Entypo';
 
 export const FormAppComponent = () => {
   const [newPhoto, setNewPhoto] = useState<boolean>(false);
@@ -25,9 +27,43 @@ export const FormAppComponent = () => {
   if (device == null) return <Text>No camera available</Text>;
 
   return (
-    <View style={Styles(isDarkMode).viewForm}>
-      <Text>Digite el titulo: </Text>
+    <ScrollView style={Styles(isDarkMode).viewForm}>
+      <Text>Title: </Text>
       <TextInput />
+      <Text>Description: </Text>
+      <TextInput />
+      <View style={{flex: 2, flexDirection: 'row', marginTop: 15}}>
+        <Text style={Styles(isDarkMode).formTextContainer}>Take Photo: </Text>
+        <TouchableOpacity
+          onPress={() => setNewPhoto(!newPhoto)}
+          style={Styles(isDarkMode).cardButton}>
+          <Icon
+            name={newPhoto ? 'camera' : 'md-camera-outline'}
+            color={'#000'}
+            size={24}></Icon>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flex: 2,
+          flexDirection: 'row',
+          marginTop: 15,
+          marginBottom: 10,
+        }}>
+        <Text style={Styles(isDarkMode).formTextContainer}>Record Audio</Text>
+        <TouchableOpacity
+          onPress={async () => {
+            await RecordAudio(isGrabando).then(async r => {
+              setIsGrabando(r[0]);
+            });
+          }}
+          style={Styles(isDarkMode).formButton}>
+          <EnIcon
+            name={isGrabando ? 'controller-stop' : 'controller-play'}
+            size={24}></EnIcon>
+        </TouchableOpacity>
+      </View>
+
       {newPhoto && (
         <>
           <Camera
@@ -47,19 +83,12 @@ export const FormAppComponent = () => {
                   assetType: 'Photos',
                 }).then();
               });
-            }}>
-            <Text>Tomar Foto</Text>
+            }}
+            style={Styles(isDarkMode).cameraButton}>
+            <Icon name="disc-outline" size={35} color={'red'} />
           </TouchableOpacity>
         </>
       )}
-      <Button
-        title={isGrabando ? 'Parar' : 'Grabar'}
-        onPress={async () => {
-          await RecordAudio(isGrabando).then(async r => {
-            setIsGrabando(r[0]);
-          });
-        }}
-      />
-    </View>
+    </ScrollView>
   );
 };

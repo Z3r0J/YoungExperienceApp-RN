@@ -39,13 +39,22 @@ export const Styles = (isDarkMode: boolean) =>
       width: '75%',
       alignSelf: 'flex-start',
     },
+    formTextContainer: {
+      width: '75%',
+      alignSelf: 'flex-start',
+    },
     cardButton: {
       backgroundColor: isDarkMode ? 'black' : 'white',
       alignSelf: 'flex-end',
-      padding: 20,
+      padding: 13,
       borderRadius: 9,
     },
-
+    formButton: {
+      backgroundColor: isDarkMode ? 'black' : 'white',
+      alignSelf: 'flex-end',
+      padding: 13,
+      borderRadius: 9,
+    },
     imageHome: {
       width: '100%',
       height: '65%',
@@ -77,5 +86,12 @@ export const Styles = (isDarkMode: boolean) =>
       color: isDarkMode ? 'white' : 'black',
       fontSize: 16,
       fontFamily: 'Lato-Regular',
+    },
+    cameraButton: {
+      backgroundColor: isDarkMode ? 'white' : 'black',
+      width: 38,
+      borderRadius: 18,
+      marginTop: -55,
+      alignSelf: 'center',
     },
   });

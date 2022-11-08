@@ -14,7 +14,9 @@ export const RecordAudio = async (isGrabando: boolean) => {
 
   await SoundRecorder.stop().then(function (result) {
     const url = `file://${result.path}`;
-    CameraRoll.save(url, {type: 'auto', album: 'Audio'});
+    CameraRoll.save(url, {type: 'auto', album: 'Audio'}).then(r => {
+      console.log(r), console.log('Grabado');
+    });
   });
 
   return [false];
