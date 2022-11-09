@@ -30,7 +30,7 @@ const App = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgb(239,109,0)',
+      primary: 'rgb(0,206,230)',
     },
   };
 
@@ -38,7 +38,7 @@ const App = () => {
     ...DarkTheme,
     colors: {
       ...DarkTheme.colors,
-      primary: 'rgb(239,145,0)',
+      primary: 'rgb(0,153,230)',
       border: 'rgb(189,157,120)',
     },
   };

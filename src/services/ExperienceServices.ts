@@ -1,3 +1,4 @@
+import {initDatabase} from './DataBase';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 
 export const getAllExperience = async (db: any) => {
@@ -40,14 +41,13 @@ export const updateData = async (
 export const truncateExperience = async (db: any) => {
   const experiences = await getAllExperience(db);
 
-  experiences.map(ex => {
-    CameraRoll.deletePhotos(ex.PhotoUrl);
-    CameraRoll.deletePhotos(ex.AudioUrl);
+  experiences.map(async ex => {
+    await CameraRoll.deletePhotos(ex.PhotoUrl);
   });
 
-  const query =
-    "DELETE FROM EXPERIENCE; UPDATE SQLITE_SEQUENCE SET seq=0 where name='EXPERIENCE'; VACCUM;";
-  return await db.executeSql(query);
+  const query = 'DROP TABLE IF EXISTS EXPERIENCE';
+  await db.executeSql(query);
+  return await initDatabase();
 };
 
 export class Experience {

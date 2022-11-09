@@ -5,7 +5,13 @@ import {
 } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {useCallback} from 'react';
-import {Text, TouchableOpacity, useColorScheme, View} from 'react-native';
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import {useDbContext} from '../../contexts/DbContext';
 import {Styles} from '../../helpers/Styles';
@@ -45,8 +51,18 @@ export const ExperienceComponent = () => {
       {experience && (
         <TouchableOpacity
           style={Styles(isDarkMode).deleteAllButton}
-          onPress={() => {
-            truncateExperience(db).then(() => navigation.navigate('Home'));
+          onPress={async () => {
+            try {
+              await truncateExperience(db).then(() =>
+                Alert.alert(
+                  'Delete correctly',
+                  'All History was delete correctly',
+                  [{onPress: () => navigation.navigate('Home')}],
+                ),
+              );
+            } catch (error) {
+              console.log(error);
+            }
           }}>
           <Text style={Styles(isDarkMode).deleteAllText}>
             Delete all experience

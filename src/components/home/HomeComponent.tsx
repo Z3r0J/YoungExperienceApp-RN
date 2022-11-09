@@ -8,6 +8,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {Styles} from '../../helpers/Styles';
 
 export const HomeComponent = ({navigation}: any) => {
@@ -19,6 +20,12 @@ export const HomeComponent = ({navigation}: any) => {
         source={require('../../../assets/images/homeImage.webp')}
         resizeMode="cover"
         style={Styles(isDarkMode).imageHome}
+      />
+      <Icon
+        name="body-sharp"
+        size={128}
+        color={isDarkMode ? 'white' : 'black'}
+        style={{alignSelf: 'center', marginBottom: 15}}
       />
       <Text style={Styles(isDarkMode).principalTextHome}>
         Young Experience App

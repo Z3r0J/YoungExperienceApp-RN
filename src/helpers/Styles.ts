@@ -3,20 +3,20 @@ import {StyleSheet} from 'react-native';
 export const Styles = (isDarkMode: boolean) =>
   StyleSheet.create({
     viewHome: {
-      backgroundColor: 'rgb(239,145,0)',
+      backgroundColor: isDarkMode ? '#0099E6' : '#00CEE6',
       height: '100%',
       marginStart: 5,
       marginEnd: 5,
       borderRadius: 8,
     },
     viewForm: {
-      backgroundColor: 'rgb(239,145,0)',
+      backgroundColor: isDarkMode ? '#0099E6' : '#00CEE6',
       height: '75%',
       marginStart: 14,
       marginEnd: 14,
       marginTop: 25,
       borderRadius: 8,
-      padding: 14,
+      padding: 18,
     },
 
     cardBackground: {
@@ -42,20 +42,15 @@ export const Styles = (isDarkMode: boolean) =>
       fontWeight: '700',
     },
     formText: {
-      fontSize: 16,
+      width: '75%',
+      alignSelf: 'flex-start',
+      fontSize: 18,
       color: isDarkMode ? 'white' : 'black',
-      fontFamily: 'Lato-Regular',
+      fontFamily: 'OpenSans-Regular',
     },
     cardTextContainer: {
       width: '75%',
       alignSelf: 'flex-start',
-    },
-    formTextContainer: {
-      width: '75%',
-      alignSelf: 'flex-start',
-      fontSize: 16,
-      color: isDarkMode ? 'white' : 'white',
-      fontFamily: 'Lato-Regular',
     },
     cardButton: {
       backgroundColor: isDarkMode ? 'black' : 'white',
@@ -91,13 +86,13 @@ export const Styles = (isDarkMode: boolean) =>
     gettingStartedButton: {
       alignSelf: 'center',
       color: isDarkMode ? 'white' : 'black',
-      backgroundColor: '#000',
+      backgroundColor: isDarkMode ? 'white' : 'black',
       marginTop: 15,
       padding: 18,
       borderRadius: 10,
     },
     gettingStartedText: {
-      color: isDarkMode ? 'white' : 'black',
+      color: isDarkMode ? 'black' : 'white',
       fontSize: 16,
       fontFamily: 'Lato-Regular',
     },

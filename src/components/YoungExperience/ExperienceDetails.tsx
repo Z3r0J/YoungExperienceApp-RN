@@ -17,11 +17,28 @@ export const ExperienceDetails = () => {
 
   return (
     <ScrollView style={Styles(isDarkMode).viewForm}>
+      <Text
+        style={{
+          color: 'white',
+          fontFamily: 'OpenSans-Regular',
+          alignSelf: 'center',
+          marginBottom: 10,
+          marginTop: 8,
+          fontSize: 28,
+          fontWeight: '700',
+        }}>
+        {route.params?.data.title}
+      </Text>
       {route.params?.data.PhotoUrl && (
         <Image
           source={{uri: route.params?.data.PhotoUrl}}
           resizeMode="cover"
-          style={{width: '100%', height: 300, marginBottom: 50}}
+          style={{
+            width: '100%',
+            height: 500,
+            marginBottom: 50,
+            borderRadius: 10,
+          }}
         />
       )}
 
@@ -32,6 +49,18 @@ export const ExperienceDetails = () => {
           videoHeight={50}
         />
       )}
+      <Text
+        style={{
+          color: 'white',
+          fontFamily: 'OpenSans-Regular',
+          marginBottom: 10,
+          marginTop: 12,
+          fontSize: 24,
+          padding: 8,
+          fontWeight: '700',
+        }}>
+        {route.params?.data.description}
+      </Text>
     </ScrollView>
   );
 };

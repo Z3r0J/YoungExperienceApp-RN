@@ -24,7 +24,6 @@ import {
   updateData,
 } from '../../services/ExperienceServices';
 import {getPhoto} from '../../helpers/getPhotoUrl';
-import {getAudio} from '../../helpers/getAudio';
 import {set} from 'react-native-reanimated';
 import {useDbContext} from '../../contexts/DbContext';
 import {useNavigation} from '@react-navigation/native';
@@ -81,6 +80,7 @@ export const FormAppComponent = () => {
         return p.node.image.uri;
       });
       setUserData({...userData, PhotoUrl: photos});
+      console.log(userData);
     }
 
     if (graboAudio && tiroPhoto) {
@@ -92,25 +92,17 @@ export const FormAppComponent = () => {
             [
               {
                 text: 'OK',
-                onPress: () => {
+                onPress: async () => {
                   clearAll();
                   navigation.navigate('ListExperience', {});
                 },
               },
             ],
           );
-          await updateData(
-            userData.PhotoUrl,
-            (
-              await getAudio()
-            ).node.image.uri,
-            db,
-          ).then(r => console.log(r));
         });
     }
 
     if (graboAudio && !tiroPhoto) {
-      setUserData({...userData, AudioUrl: (await getAudio()).node.image.uri});
       userData.AudioUrl &&
         insertExperience(userData, db).then(async () => {
           Alert.alert('Added', 'That was added correctly with Audio', [
@@ -181,7 +173,7 @@ export const FormAppComponent = () => {
         }}
       />
       <View style={{flex: 2, flexDirection: 'row', marginTop: 15}}>
-        <Text style={Styles(isDarkMode).formTextContainer}>Take Photo: </Text>
+        <Text style={Styles(isDarkMode).formText}>Take Photo: </Text>
         <TouchableOpacity
           onPress={() => setNewPhoto(!newPhoto)}
           style={Styles(isDarkMode).cardButton}>
@@ -198,12 +190,13 @@ export const FormAppComponent = () => {
           marginTop: 15,
           marginBottom: 10,
         }}>
-        <Text style={Styles(isDarkMode).formTextContainer}>Record Audio</Text>
+        <Text style={Styles(isDarkMode).formText}>Record Audio</Text>
         <TouchableOpacity
           onPress={async () => {
             await RecordAudio(isGrabando).then(async r => {
-              setIsGrabando(r[0]);
+              setIsGrabando(r.booleano);
               setGraboAudio(true);
+              setUserData({...userData, AudioUrl: r.uri});
             });
           }}
           style={Styles(isDarkMode).formButton}>
@@ -242,12 +235,12 @@ export const FormAppComponent = () => {
         }}
         style={{
           marginTop: 35,
-          backgroundColor: '#000',
+          backgroundColor: isDarkMode ? 'black' : 'white',
           alignSelf: 'center',
           padding: 18,
           borderRadius: 10,
         }}>
-        <Text style={Styles(isDarkMode).formTextContainer}>Guardar</Text>
+        <Text style={Styles(isDarkMode).formText}>Guardar</Text>
       </TouchableOpacity>
     </ScrollView>
   );
